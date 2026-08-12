@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 
-import img01 from './image/img01.jpeg'; 
+// @ts-ignore: TypeScript 이미지 타입 인식 오류 임시 방지
+import img01 from './image/img01.jpeg'; // 프로필 사진용으로 추가
 // @ts-ignore
 import img02 from './image/img02.jpeg';
 // @ts-ignore
@@ -13,7 +14,7 @@ export default function AlluxeInternshipPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   return (
-    <div className="min-h-screen relative overflow-x-hidden bg-[#d2deE0] text-gray-800 selection:bg-[#8B0000] selection:text-white pb-28">
+    <div className="min-h-[100dvh] relative overflow-x-clip bg-[#d2deE0] text-gray-800 selection:bg-[#8B0000] selection:text-white pb-28">
       
       {/* 폰트 및 애니메이션 CSS */}
       <style dangerouslySetInnerHTML={{__html: `
@@ -82,7 +83,7 @@ export default function AlluxeInternshipPage() {
       <div className="absolute top-[5%] left-[40%] w-4 h-4 bg-[#8B0000]/20 rounded-full animate-float float-delay-3 pointer-events-none"></div>
       <div className="absolute top-[75%] left-[30%] w-8 h-8 border-4 border-[#8B0000]/10 rounded-full animate-float float-delay-5 pointer-events-none"></div>
 
-      <div className={`relative z-10 container mx-auto px-4 md:px-6 py-16 max-w-6xl flex flex-col items-center justify-center min-h-screen ${lang === 'ko' ? 'font-body-ko' : 'font-body-ja'}`}>
+      <div className={`relative z-10 container mx-auto px-4 md:px-6 py-16 max-w-6xl flex flex-col items-center justify-center min-h-[100dvh] ${lang === 'ko' ? 'font-body-ko' : 'font-body-ja'}`}>
         
         {/* 헤더 및 언어 전환 */}
         <header className="text-center mb-10 fade-in-up w-full">
