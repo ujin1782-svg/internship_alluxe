@@ -2,12 +2,11 @@
 
 import React, { useState } from 'react';
 
-// @ts-ignore: TypeScript 이미지 타입 인식 오류 임시 방지
-import img01 from './app/img01.jpeg'; // 프로필 사진용으로 추가
+import img01 from './image/img01.jpeg'; 
 // @ts-ignore
-import img02 from './app/img02.jpeg';
+import img02 from './image/img02.jpeg';
 // @ts-ignore
-import img03 from './app/img03.png';
+import img03 from './image/img03.png';
 
 export default function AlluxeInternshipPage() {
   const [lang, setLang] = useState<'ko' | 'ja'>('ko');
