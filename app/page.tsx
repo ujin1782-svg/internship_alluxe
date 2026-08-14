@@ -12,7 +12,6 @@ const SECTIONS = [
   { id: 'life', num: '03', ko: '일본 생활 기록', ja: '日本での生活記録', kanji: '生活記録' },
   { id: 'reflection', num: '04', ko: '회고 및 성과', ja: '振り返りと成果', kanji: '振り返り' },
   { id: 'thanks', num: '05', ko: '감사 인사', ja: '謝辞', kanji: '謝辞' },
-  { id: 'notice', num: '06', ko: '작성 안내', ja: '作成にあたって', kanji: '注意事項' },
 ] as const;
 
 export default function JisaInternshipReport() {
@@ -234,7 +233,7 @@ export default function JisaInternshipReport() {
           {/* 01. 기본 프로필 */}
           <Sheet id="profile" num="01" refs={refs} kanji="基本情報" title={tx('기본 프로필', '基本プロフィール', lang)}>
             <FieldRow label={tx('대학명 · 학부 · 학과', '大学名・学部・学科', lang)} value={tx('전남대학교 · 공과대학 · 소프트웨어공학과', '全南大学・工科大学・ソフトウェア工学科', lang)} />
-            <FieldRow label={tx('학년', '学年', lang)} value={tx('4학년 (22학번)', '4年生（22年度入学）', lang)} />
+            <FieldRow label={tx('학년', '学年', lang)} value={tx('3학년 (22학번)', '3年生（22年度入学）', lang)} />
             <FieldRow
               label={tx('전공 및 보유 IT 기술', '専攻および保有IT技術', lang)}
               value={tx(
@@ -362,20 +361,6 @@ export default function JisaInternshipReport() {
                 lang
               )}
             </p>
-          </Sheet>
-
-          {/* 06. 작성 안내 */}
-          <Sheet id="notice" num="06" refs={refs} kanji="注意事項" title={tx('작성 및 제출 시 주의사항', '作成および提出時の注意事項', lang)}>
-            <div className="space-y-4 text-[15px] leading-relaxed" style={{ color: 'var(--ink)' }}>
-              <div>
-                <strong className="block font-bold mb-1">{tx('1. 사진·동영상 사용 확인', '1. 写真・動画の使用確認', lang)}</strong>
-                <p>{tx('회사 내부, 제품 사진 또는 관계자가 촬영된 사진을 사용할 경우에는 반드시 사전에 수용 기업의 허가를 받아 주세요. 협회(JISA)에서도 이 자료를 기업에 제출하여 기업 측과 관련 내용을 확인할 예정입니다.', '社内、製品の写真、または関係者が写っている写真を使用する場合は、必ず事前に受入企業の許可を得てください。協会（JISA）でもこの資料を企業に提出し、企業側と関連内容を確認する予定です。', lang)}</p>
-              </div>
-              <div>
-                <strong className="block font-bold mb-1">{tx('2. 작성 형식', '2. 作成形式', lang)}</strong>
-                <p>{tx('JISA 인턴십 참가자인 이수호 씨에게 확인해 주세요. 가능한 한 상세하게 작성해 주세요.', 'JISAインターンシップ参加者のイ・スホさんに確認してください。可能な限り詳細に作成してください。', lang)}</p>
-              </div>
-            </div>
           </Sheet>
 
           <footer className="mt-16 pt-8 border-t text-xs text-center" style={{ borderColor: 'var(--paper-line)', color: 'var(--ink-faint)' }}>
