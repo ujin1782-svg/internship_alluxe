@@ -218,7 +218,7 @@ export default function JisaInternshipReport() {
                 <h3 className="font-display-ko text-2xl font-bold mb-3">{tx('정우진', 'チョン・ウジン', lang)}</h3>
                 <div className="text-sm space-y-1" style={{ color: 'var(--ink-soft)' }}>
                   <p>{tx('전남대학교 · 소프트웨어공학과', '全南大学・ソフトウェア工学科', lang)}</p>
-                  <p>{tx('인턴십 기업: 株式会社alluxe (도쿄)', 'インターンシップ企業：株式会社alluxe（東京）', lang)}</p>
+                  <p>{tx('인턴십 기업: 株式会社ALLUXE (도쿄)', 'インターンシップ企業：株式会社ALLUXE（東京）', lang)}</p>
                 </div>
               </div>
               <div className="stamp w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0">
@@ -234,16 +234,16 @@ export default function JisaInternshipReport() {
           {/* 01. 기본 프로필 */}
           <Sheet id="profile" num="01" refs={refs} kanji="基本情報" title={tx('기본 프로필', '基本プロフィール', lang)}>
             <FieldRow label={tx('대학명 · 학부 · 학과', '大学名・学部・学科', lang)} value={tx('전남대학교 · 공과대학 · 소프트웨어공학과', '全南大学・工科大学・ソフトウェア工学科', lang)} />
-            <FieldRow label={tx('학년', '学年', lang)} value={tx('4학년 (2022학번)', '4年生（2022年度入学）', lang)} />
+            <FieldRow label={tx('학년', '学年', lang)} value={tx('4학년 (22학번)', '4年生（22年度入学）', lang)} />
             <FieldRow
               label={tx('전공 및 보유 IT 기술', '専攻および保有IT技術', lang)}
               value={tx(
-                'Python 데이터 수집/자동화, React·Next.js 웹 개발, Firebase/MySQL 기반 DB 설계, Make.com·Apify 연동 자동화 파이프라인 구축, REST API 설계(PHP)',
-                'Pythonによるデータ収集・自動化、React・Next.jsを用いたWeb開発、Firebase/MySQLベースのDB設計、Make.com・Apify連携の自動化パイプライン構築、REST API設計（PHP）',
+                'Python 데이터 수집/자동화, React 웹 개발, Firebase/MySQL/Docker 기반 DB 설계, Apify·Make·Gemini 연동 데이터 파이프라인 구축',
+                'Pythonによるデータ収集・自動化、Reactを用いたWeb開発、Firebase/MySQL/DockerベースのDB設計、Apify・Make・Gemini連携のデータパイプライン構築',
                 lang
               )}
             />
-            <FieldRow label={tx('일본어 능력', '日本語能力', lang)} value={<span className="blank pb-0.5">{tx('JLPT [ 급 ] 또는 일상·비즈니스 회화 가능 수준', 'JLPT [ 級 ] または日常・ビジネス会話が可能なレベル', lang)}</span>} />
+            <FieldRow label={tx('일본어 능력', '日本語能力', lang)} value={tx('일상회화 및 비즈니스 회화 가능 수준', '日常会話およびビジネス会話が可能なレベル', lang)} />
             <FieldRow label={tx('인턴십 참가 기간', 'インターンシップ参加期間', lang)} value={tx('2026년 6월 30일 ~ 8월 29일 (여름 8주간)', '2026年6月30日〜8月29日（夏季8週間）', lang)} />
             <FieldRow label={tx('주최', '主催', lang)} value={tx('SW 중심사업단', 'SW中心事業団', lang)} last />
           </Sheet>
@@ -256,8 +256,8 @@ export default function JisaInternshipReport() {
             <FieldRow
               label={tx('배치 부서 및 담당 업무 개요', '配属部署および担当業務概要', lang)}
               value={tx(
-                '마케팅팀 배속. 하라주쿠·도쿄 23구 지역 매장 정보를 수집·가공하여, 10~20대 여성 대상 정보 사이트 sgs109 운영을 지원하는 자동화 도구 개발 담당.',
-                'マーケティングチーム配属。原宿・東京23区エリアの店舗情報を収集・加工し、10〜20代女性向け情報サイト「sgs109」の運営を支援する自動化ツールの開発を担当。',
+                '데이터 수집 및 정리, 엑셀 작성, SNS 정보 수집 자동화 시스템 구축, 사내 활용 및 서비스 연동을 위한 웹 개발 담당.',
+                'データ収集及び整理、Excel作成、SNS情報収集の自動化システム構築、社内活用およびサービス連携のためのWeb開発を担当。',
                 lang
               )}
             />
@@ -265,26 +265,27 @@ export default function JisaInternshipReport() {
               label={tx('구체적인 작업 · 개발 내용', '具体的な作業・開発内容', lang)}
               value={
                 <ul className="list-disc pl-5 space-y-1.5">
-                  <li>{tx('Google 비즈니스 프로필에서 매장 홍보 정보를 자동 수집하는 프로그램 개발', 'Googleビジネスプロフィールから店舗のプロモーション情報を自動収集するプログラムの開発', lang)}</li>
-                  <li>{tx('하라주쿠 신규 개업 매장의 Instagram · X 게시물을 Apify로 수집하고 Gemini AI로 가공하는 파이프라인 구축', '原宿の新規開業店舗のInstagram・X投稿をApifyで収集し、Gemini AIで加工するパイプラインの構築', lang)}</li>
-                  <li>{tx('가공한 콘텐츠를 커스텀 PHP REST API를 통해 WordPress에 자동 등록(중복 체크, 이미지 사이드로드 포함)', '加工したコンテンツをカスタムPHP REST API経由でWordPressへ自動登録（重複チェック・画像サイドロード含む）', lang)}</li>
-                  <li>{tx('Make.com의 크레딧 소모를 줄이기 위해 반복 처리를 서버 사이드(PHP)에서 일괄 처리하도록 설계', 'Make.comのクレジット消費を抑えるため、繰り返し処理をサーバーサイド（PHP）で一括処理する設計に変更', lang)}</li>
+                  <li>{tx('Google Maps API와 Python을 활용한 도쿄 퍼스널짐 매장 정보 대량 수집 및 엑셀 자동화', 'Google Maps APIとPythonを活用した東京のパーソナルジム店舗情報の大量収集およびExcel自動化', lang)}</li>
+                  <li>{tx('정보 사이트 sgs109 스냅 뷰어 기획 및 테스트 풀스택(React, MySQL, Docker 등) 개발', '情報サイト「sgs109」のスナップビューアの企画およびテスト用フルスタック（React, MySQL, Docker等）開発', lang)}</li>
+                  <li>{tx('Apify와 Make를 활용한 하라주쿠 매장 SNS 자동 수집 시스템 구축 및 이메일/시트 연동', 'ApifyとMakeを活用した原宿店舗SNSの自動収集システムの構築とメール・スプレッドシート連携', lang)}</li>
+                  <li>{tx('크레딧 최적화를 위해 Gemini API를 연동하여 AI 데이터 가공 파이프라인(45크레딧->6크레딧 단축) 설계', 'クレジット最適化のためGemini APIを連携し、AIデータ加工パイプライン（45クレジット→6クレジットに削減）を設計', lang)}</li>
+                  <li>{tx('React와 Firebase를 활용한 GPS 기반 사용자 여행 기록 웹앱 기획 및 주요 기능 구현', 'ReactとFirebaseを活用したGPSベースのユーザー旅行記録Webアプリの企画および主要機能の実装', lang)}</li>
                 </ul>
               }
             />
             <FieldRow
               label={tx('당시 필요했던 IT 기술', '当時必要とされたIT技術', lang)}
-              value={tx('Python, Google Places API, Make.com, Apify, Google Gemini API, PHP(REST API), WordPress, React/Next.js, Firebase, MySQL', 'Python、Google Places API、Make.com、Apify、Google Gemini API、PHP（REST API）、WordPress、React/Next.js、Firebase、MySQL', lang)}
+              value={tx('Google Maps API, Google Places API, MySQL, Docker, Dbeaver, React, Firebase, Apify, Make, Gemini, Python', 'Google Maps API、Google Places API、MySQL、Docker、Dbeaver、React、Firebase、Apify、Make、Gemini、Python', lang)}
             />
             <FieldRow
               label={tx('제작물 소개 (성과물)', '制作物紹介（成果物）', lang)}
-              value={<span className="blank pb-0.5">{tx('URL / 결과물 링크: [ ]', 'URL／成果物リンク：[ ]', lang)}</span>}
+              value={<a href="https://epic-bon.web.app" target="_blank" rel="noreferrer" className="text-blue-600 underline">https://epic-bon.web.app (여행 기록 웹앱)</a>}
               last
             />
             <div className="mt-6 rounded-xl overflow-hidden border" style={{ borderColor: 'var(--paper-line)' }}>
-              <img src="/image/img03.png" alt={tx('업무 결과물 스크린샷', '業務成果物のスクリーンショット', lang)} className="w-full h-56 object-cover" />
+              <img src="/image/img03.png" alt={tx('업무 결과물 스크린샷', '業務成果物のスクリーンショット', lang)} className="w-full h-56 object-cover bg-gray-200" />
               <p className="text-xs px-4 py-2" style={{ color: 'var(--ink-faint)' }}>
-                {tx('개발한 매장 정보 수집 프로그램의 실행 화면', '開発した店舗情報収集プログラムの実行画面', lang)}
+                {tx('업무 결과물 / 시스템 화면 스크린샷', '業務成果物 / システム画面のスクリーンショット', lang)}
               </p>
             </div>
           </Sheet>
@@ -294,15 +295,31 @@ export default function JisaInternshipReport() {
             <FieldRow
               label={tx('방문한 장소', '訪れた場所', lang)}
               value={tx(
-                '숙소가 센다가야역 인근이라 신주쿠 · 시부야 · 하라주쿠 등 도쿄 중심지 접근이 편리했음. 퇴근 후와 주말을 활용해 도쿄 각지의 관광 명소를 답사.',
-                '宿泊先が千駄ヶ谷駅の近くだったため、新宿・渋谷・原宿など東京中心部へのアクセスが便利だった。退勤後や週末を活用して東京各地の観光名所を巡った。',
+                '숙소(다이타바시, 키타산도) 주변 및 신주쿠, 시모키타자와, 고엔지, 치요다구, 오다이바, 이케부쿠로, 시부야, 하라주쿠, 아키하바라, 우에노, 아사쿠사, 긴자 등 도쿄 주요 관광지',
+                '宿泊先（代田橋、北参道）周辺および新宿、下北沢、高円寺、千代田区、お台場、池袋、渋谷、原宿、秋葉原、上野、浅草、銀座など東京の主要観光地',
+                lang
+              )}
+            />
+            <FieldRow
+              label={tx('음식 · 식문화 체험', '食事・食文化体験', lang)}
+              value={tx(
+                '평일 퇴근 후에는 인근 마트에서 할인하는 도시락이나 라면으로 간편하게 식사를 해결했으며, 주말에는 아메요코초 등 재래시장을 방문해 탕후루나 일본 현지 길거리 음식들을 다양하게 체험했습니다.',
+                '平日の退勤後は近所のスーパーで割引された弁当やラーメンで手軽に食事を済ませ、週末はアメ横などの在来市場を訪れ、タンフルや日本現地の様々な屋台料理を体験しました。',
+                lang
+              )}
+            />
+            <FieldRow
+              label={tx('사전 준비', '事前準備', lang)}
+              value={tx(
+                '여름철 무더운 날씨에 대비한 얇은 옷가지와 현지 교통 및 식비로 사용할 여유 자금을 준비하여 생활에 큰 무리가 없도록 하였습니다.',
+                '夏の猛暑に備えた薄手のアパレルや、現地の交通費・食費として余裕のある資金を準備したため、生活に大きな支障はありませんでした。',
                 lang
               )}
             />
             <div className="mt-6 rounded-xl overflow-hidden border" style={{ borderColor: 'var(--paper-line)' }}>
-              <img src="/image/img02.jpeg" alt={tx('일본 생활 및 관광 사진', '日本での生活および観光の写真', lang)} className="w-full h-56 object-cover" />
+              <img src="/image/img02.jpeg" alt={tx('일본 생활 및 관광 사진', '日本での生活および観光の写真', lang)} className="w-full h-56 object-cover bg-gray-200" />
               <p className="text-xs px-4 py-2" style={{ color: 'var(--ink-faint)' }}>
-                {tx('업무 외 시간을 활용한 도쿄 답사', '業務外の時間を活用した東京散策', lang)}
+                {tx('주말을 활용한 도쿄 답사 (아메요코초, 신주쿠 교엔 등)', '週末を活用した東京散策（アメ横、新宿御苑など）', lang)}
               </p>
             </div>
           </Sheet>
@@ -310,25 +327,58 @@ export default function JisaInternshipReport() {
           {/* 04. 회고 및 성과 */}
           <Sheet id="reflection" num="04" refs={refs} kanji="振り返り" title={tx('체험에 대한 회고 및 성과', '体験についての振り返りと成果', lang)}>
             <FieldRow
-              label={tx('참가하며 느낀 점', '参加して感じたこと', lang)}
+              label={tx('참가하며 느낀 점 및 성과', '参加して感じたことと成果', lang)}
               value={tx(
-                '학교에서 배운 내용을 실제 업무에 적용해 보고, 막히는 부분을 스스로 고민해 새로운 방법을 시도하며 프로그램을 직접 개발해 본 경험을 통해 현업 적응에 대한 자신감을 얻었습니다.',
-                '大学で学んだ内容を実務に応用し、行き詰まった部分は自分で考えて新しい方法を試しながらプログラムを直接開発した経験を通じて、実務への適応に自信を持てるようになりました。',
+                '처음 접하는 업무가 많아 막막하기도 했으나, AI를 적극적으로 활용하며 능동적으로 문제 해결 방법을 찾았습니다. 결과적으로 API를 활용한 실용적 자동화 도구 개발과 프론트엔드, 백엔드, DB를 아우르는 풀스택 개발 경험을 통해 조직의 일원으로서 크게 성장할 수 있었습니다.',
+                '初めて経験する業務が多く戸惑うこともありましたが、AIを積極的に活用し能動的に問題解決の方法を見つけました。結果的にAPIを活用した実用的な自動化ツールの開発や、フロントエンド、バックエンド、DBを網羅するフルスタック開発の経験を通じて、組織の一員として大きく成長することができました。',
                 lang
               )}
             />
             <FieldRow
-              label={tx('일본어의 필요성', '日本語の必要性', lang)}
+              label={tx('좋았던 점', '良かった点', lang)}
               value={tx(
-                '담당자분들과 일본어로 회의를 진행하고 질의응답·피드백을 주고받으며 비즈니스 일본어를 자연스럽게 익힐 수 있었습니다.',
-                '担当者の方々と日本語で会議を行い、質疑応答やフィードバックをいただく中で、ビジネス日本語を自然に身につけることができました。',
+                '회사에서 기획서를 직접 작성하고 담당자와 피드백을 주고받으며 실무 프로세스를 배운 점이 가장 좋았습니다. 기술력 향상은 물론, 비즈니스 매너와 소통 능력을 기를 수 있었습니다.',
+                '会社で企画書を自ら作成し、担当者とフィードバックをやり取りしながら実務プロセスを学べた点が最も良かったです。技術力の向上はもちろん、ビジネスマナーやコミュニケーション能力を養うことができました。',
+                lang
+              )}
+            />
+            <FieldRow
+              label={tx('일본어의 필요성 및 조언', '日本語の必要性およびアドバイス', lang)}
+              value={tx(
+                '일본 현지 근무자들과 논의하고 피드백을 요구하는 과정에서 일본어 소통 능력의 중요성을 절감했습니다. 특히 단어를 알아도 발음이 부정확하면 원활한 소통이 어려웠기에, 향후 참가할 학생들은 일본어 공부 시 반드시 회화와 발음 연습을 병행할 것을 권장합니다.',
+                '日本現地のスタッフと議論しフィードバックを求める過程で、日本語でのコミュニケーション能力の重要性を痛感しました。特に単語を知っていても発音が不正確だと円滑な疎通が難しかったため、今後参加する学生は日本語を勉強する際、必ず会話と発音練習を並行することをお勧めします。',
                 lang
               )}
               last
             />
           </Sheet>
 
-          <footer className="mt-16 pt-8 border-t text-xs" style={{ borderColor: 'var(--paper-line)', color: 'var(--ink-faint)' }}>
+          {/* 05. 감사 인사 */}
+          <Sheet id="thanks" num="05" refs={refs} kanji="謝辞" title={tx('기업에 대한 감사 인사', '企業に対する謝辞', lang)}>
+            <p className="text-[15px] leading-relaxed" style={{ color: 'var(--ink)' }}>
+              {tx(
+                '인턴십 기간 동안 부족한 점이 많았음에도 불구하고 세심하게 지도해 주시고 아낌없는 피드백을 주신 주식회사 ALLUXE의 담당자님과 모든 임직원 여러분께 진심으로 깊은 감사의 말씀을 드립니다. 실무 경험뿐만 아니라 따뜻한 배려 덕분에 일본에서의 생활과 업무 모두 성공적으로 마칠 수 있었습니다.',
+                'インターンシップ期間中、至らない点も多々ありましたが、細やかにご指導いただき、惜しみないフィードバックを下さった株式会社ALLUXEの担当者様および社員の皆様に心より深く感謝申し上げます。実務経験のみならず、皆様の温かいご配慮のおかげで、日本での生活と業務のすべてを無事に終えることができました。',
+                lang
+              )}
+            </p>
+          </Sheet>
+
+          {/* 06. 작성 안내 */}
+          <Sheet id="notice" num="06" refs={refs} kanji="注意事項" title={tx('작성 및 제출 시 주의사항', '作成および提出時の注意事項', lang)}>
+            <div className="space-y-4 text-[15px] leading-relaxed" style={{ color: 'var(--ink)' }}>
+              <div>
+                <strong className="block font-bold mb-1">{tx('1. 사진·동영상 사용 확인', '1. 写真・動画の使用確認', lang)}</strong>
+                <p>{tx('회사 내부, 제품 사진 또는 관계자가 촬영된 사진을 사용할 경우에는 반드시 사전에 수용 기업의 허가를 받아 주세요. 협회(JISA)에서도 이 자료를 기업에 제출하여 기업 측과 관련 내용을 확인할 예정입니다.', '社内、製品の写真、または関係者が写っている写真を使用する場合は、必ず事前に受入企業の許可を得てください。協会（JISA）でもこの資料を企業に提出し、企業側と関連内容を確認する予定です。', lang)}</p>
+              </div>
+              <div>
+                <strong className="block font-bold mb-1">{tx('2. 작성 형식', '2. 作成形式', lang)}</strong>
+                <p>{tx('JISA 인턴십 참가자인 이수호 씨에게 확인해 주세요. 가능한 한 상세하게 작성해 주세요.', 'JISAインターンシップ参加者のイ・スホさんに確認してください。可能な限り詳細に作成してください。', lang)}</p>
+              </div>
+            </div>
+          </Sheet>
+
+          <footer className="mt-16 pt-8 border-t text-xs text-center" style={{ borderColor: 'var(--paper-line)', color: 'var(--ink-faint)' }}>
             {tx('JISA · Japan Internship Support Association · 일본 인턴십 지원협회', 'JISA・Japan Internship Support Association・日本インターンシップ支援協会', lang)}
           </footer>
         </main>
