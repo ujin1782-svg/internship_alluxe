@@ -15,7 +15,8 @@ const SECTIONS = [
 ] as const;
 
 export default function JisaInternshipReport() {
-  const [lang, setLang] = useState<Lang>('ko');
+  // 1. 기본 언어를 일본어로 변경
+  const [lang, setLang] = useState<Lang>('ja');
   const [active, setActive] = useState('cover');
   const refs = useRef<Record<string, HTMLElement | null>>({});
 
@@ -41,23 +42,22 @@ export default function JisaInternshipReport() {
 
   return (
     <div
-      className={`min-h-[100dvh] relative ${lang === 'ko' ? 'font-body-ko' : 'font-body-ja'}`}
-      style={{ background: 'var(--paper)', color: 'var(--ink)' }}
+      className={`min-h-[100dvh] relative overflow-hidden bg-animated ${lang === 'ko' ? 'font-body-ko' : 'font-body-ja'}`}
+      style={{ color: 'var(--ink)' }}
     >
       <style
         dangerouslySetInnerHTML={{
           __html: `
         :root {
+          /* 색상 대비 및 화려함을 위해 변수 조정 */
           --paper: #ECE8DD;
-          --paper-deep: #E2DDCE;
-          --paper-line: #CFC7B0;
-          --ink: #22283A;
-          --ink-soft: #545C6E;
-          --ink-faint: #8A8F9D;
-          --seal: #B3272C;
-          --seal-soft: rgba(179,39,44,0.08);
-          --teal: #3E5C56;
-          --teal-soft: rgba(62,92,86,0.10);
+          --paper-line: rgba(207, 199, 176, 0.6);
+          --ink: #111827;
+          --ink-soft: #4B5563;
+          --ink-faint: #9CA3AF;
+          --seal: #E11D48;
+          --seal-soft: rgba(225, 29, 72, 0.08);
+          --accent-glow: rgba(225, 29, 72, 0.15);
         }
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=Noto+Serif+JP:wght@500;700;900&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
@@ -67,16 +67,39 @@ export default function JisaInternshipReport() {
         .font-body-ja { font-family: 'Noto Sans JP', sans-serif; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
 
-        .paper-texture {
-          background-image:
-            repeating-linear-gradient(115deg, rgba(34,40,58,0.015) 0px, rgba(34,40,58,0.015) 1px, transparent 1px, transparent 3px);
+        /* 배경 애니메이션 (움직이는 그라데이션) */
+        @keyframes gradientBG {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .bg-animated {
+          background: linear-gradient(-45deg, #f3e8e0, #e9f5f9, #fde2e4, #e2e2f3);
+          background-size: 400% 400%;
+          animation: gradientBG 15s ease infinite;
         }
 
+        /* 텍스트 그라데이션 효과 */
+        .text-gradient {
+          background: linear-gradient(135deg, #111827 0%, #4f46e5 50%, #e11d48 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        /* 시트 애니메이션 및 입체감 강화 */
         .sheet {
-          background: #F5F2E9;
-          border: 1px solid var(--paper-line);
-          box-shadow: 0 1px 0 rgba(34,40,58,0.03), 0 12px 28px -18px rgba(34,40,58,0.35);
+          background: rgba(255, 255, 255, 0.85);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(255, 255, 255, 0.5);
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 20px 40px -20px rgba(0,0,0,0.1);
           position: relative;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .sheet:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 30px 60px -20px var(--accent-glow);
         }
         .sheet::before {
           content: '';
@@ -85,45 +108,57 @@ export default function JisaInternshipReport() {
           height: 0;
           border-top: 2px dashed var(--paper-line);
         }
+
+        /* 도장 찍히는 팝업 애니메이션 */
+        @keyframes stampIn {
+          0% { opacity: 0; transform: scale(2.5) rotate(20deg); }
+          50% { opacity: 1; transform: scale(0.9) rotate(-12deg); }
+          100% { opacity: 1; transform: scale(1) rotate(-9deg); }
+        }
         .stamp {
-          border: 3px solid var(--seal);
+          border: 4px solid var(--seal);
           color: var(--seal);
           border-radius: 9999px;
-          transform: rotate(-9deg);
-          box-shadow: 0 0 0 2px rgba(179,39,44,0.06);
+          box-shadow: 0 0 15px var(--accent-glow), inset 0 0 10px var(--accent-glow);
+          opacity: 0;
+          animation: stampIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+          animation-delay: 0.5s;
         }
+
         .index-rail button {
-          transition: color .2s ease, border-color .2s ease, background-color .2s ease;
+          transition: all 0.2s ease;
         }
-        .index-active { color: var(--seal) !important; border-color: var(--seal) !important; background: var(--seal-soft) !important; }
+        .index-active { 
+          color: var(--seal) !important; 
+          border-color: var(--seal) !important; 
+          background: var(--seal-soft) !important; 
+          transform: translateX(4px);
+        }
         .field-label {
           font-family: 'JetBrains Mono', monospace;
           letter-spacing: .06em;
-          font-size: 0.7rem;
+          font-size: 0.75rem;
           color: var(--ink-faint);
-        }
-        .blank {
-          border-bottom: 1px dashed var(--paper-line);
-          color: var(--ink-faint);
+          text-transform: uppercase;
         }
       `,
         }}
       />
 
       {/* 언어 토글 */}
-      <div className="fixed top-4 right-4 md:top-6 md:right-6 z-40">
+      <div className="fixed top-4 right-4 md:top-6 md:right-6 z-50">
         <div
-          className="inline-flex rounded-full p-1 shadow-md border"
-          style={{ background: 'rgba(245,242,233,0.9)', borderColor: 'var(--paper-line)', backdropFilter: 'blur(6px)' }}
+          className="inline-flex rounded-full p-1 shadow-lg border"
+          style={{ background: 'rgba(255,255,255,0.7)', borderColor: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(10px)' }}
         >
           {(['ko', 'ja'] as Lang[]).map((l) => (
             <button
               key={l}
               onClick={() => setLang(l)}
-              className="px-4 py-2 rounded-full text-sm font-bold font-mono transition-all"
+              className="px-4 py-2 rounded-full text-sm font-bold font-mono transition-all duration-300"
               style={
                 lang === l
-                  ? { background: 'var(--ink)', color: 'var(--paper)' }
+                  ? { background: 'var(--ink)', color: '#fff', boxShadow: '0 4px 10px rgba(0,0,0,0.15)' }
                   : { color: 'var(--ink-soft)' }
               }
             >
@@ -135,8 +170,8 @@ export default function JisaInternshipReport() {
 
       {/* 모바일 인덱스 탭 */}
       <div
-        className="lg:hidden sticky top-0 z-30 overflow-x-auto whitespace-nowrap px-4 py-3 border-b"
-        style={{ background: 'rgba(236,232,221,0.92)', borderColor: 'var(--paper-line)', backdropFilter: 'blur(6px)' }}
+        className="lg:hidden sticky top-0 z-40 overflow-x-auto whitespace-nowrap px-4 py-3 border-b shadow-sm"
+        style={{ background: 'rgba(255,255,255,0.8)', borderColor: 'var(--paper-line)', backdropFilter: 'blur(12px)' }}
       >
         {SECTIONS.map((s) => (
           <button
@@ -148,7 +183,7 @@ export default function JisaInternshipReport() {
             style={{ borderColor: 'var(--paper-line)', color: 'var(--ink-soft)' }}
           >
             <span>{s.num}</span>
-            <span className="opacity-70">{tx(s.ko, s.ja, lang)}</span>
+            <span className="opacity-80">{tx(s.ko, s.ja, lang)}</span>
           </button>
         ))}
       </div>
@@ -158,22 +193,22 @@ export default function JisaInternshipReport() {
         <aside className="hidden lg:block sticky top-0 h-[100dvh] w-64 shrink-0 py-14 px-6">
           <div className="mb-10">
             <p className="field-label mb-1">JISA · DOC-2026</p>
-            <h2 className="font-display-ko text-lg font-bold leading-tight" style={{ color: 'var(--ink)' }}>
+            <h2 className="font-display-ko text-lg font-bold leading-tight tracking-tight text-gradient">
               {tx('인턴십 체험 기록', 'インターンシップ体験記録', lang)}
             </h2>
           </div>
-          <nav className="index-rail flex flex-col gap-1">
+          <nav className="index-rail flex flex-col gap-1.5">
             {SECTIONS.map((s) => (
               <button
                 key={s.id}
                 onClick={() => scrollTo(s.id)}
                 className={`text-left px-3 py-2.5 rounded-md border border-transparent flex items-baseline gap-3 ${
-                  active === s.id ? 'index-active' : ''
+                  active === s.id ? 'index-active font-bold shadow-sm' : ''
                 }`}
                 style={{ color: 'var(--ink-soft)' }}
               >
-                <span className="font-mono text-xs" style={{ color: 'var(--ink-faint)' }}>{s.num}</span>
-                <span className="text-sm font-bold">{tx(s.ko, s.ja, lang)}</span>
+                <span className="font-mono text-xs" style={{ color: active === s.id ? 'var(--seal)' : 'var(--ink-faint)' }}>{s.num}</span>
+                <span className="text-sm">{tx(s.ko, s.ja, lang)}</span>
               </button>
             ))}
           </nav>
@@ -192,15 +227,17 @@ export default function JisaInternshipReport() {
           <section
             id="cover"
             ref={(el) => { refs.current['cover'] = el; }}
-            className="mb-16"
+            className="mb-20"
           >
-            <p className="field-label mb-4">JAPAN INTERNSHIP SUPPORT ASSOCIATION</p>
-            <h1 className={lang === 'ko' ? 'font-display-ko text-4xl md:text-6xl font-black leading-[1.05] mb-3' : 'font-display-ja text-4xl md:text-6xl font-black leading-[1.05] mb-3'} style={{ color: 'var(--ink)' }}>
+            <p className="field-label mb-4 tracking-widest text-indigo-500 font-bold">JAPAN INTERNSHIP SUPPORT ASSOCIATION</p>
+            <h1 className={`${lang === 'ko' ? 'font-display-ko' : 'font-display-ja'} text-5xl md:text-7xl font-black leading-[1.1] mb-4 text-gradient`}>
               {tx('인턴십 활동 기록', 'インターンシップ活動記録', lang)}
               <br />
-              <span style={{ color: 'var(--seal)' }}>{tx('· 체험 보고서', '・体験報告書', lang)}</span>
+              <span className="text-3xl md:text-5xl" style={{ color: 'var(--seal)', WebkitTextFillColor: 'initial', WebkitBackgroundClip: 'initial', background: 'none' }}>
+                {tx('· 체험 보고서', '・体験報告書', lang)}
+              </span>
             </h1>
-            <p className="text-base md:text-lg mt-4" style={{ color: 'var(--ink-soft)' }}>
+            <p className="text-base md:text-lg mt-6 font-medium" style={{ color: 'var(--ink-soft)' }}>
               {tx(
                 'JISA (Japan Internship Support Association) · 일본 인턴십 지원협회 · 주최: 대학 SW 중심사업단',
                 'JISA（Japan Internship Support Association）・日本インターンシップ支援協会・主催：大学SW中心事業団',
@@ -208,20 +245,22 @@ export default function JisaInternshipReport() {
               )}
             </p>
 
-            <div className="mt-10 sheet rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-8">
-              <div className="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-4 flex-shrink-0" style={{ borderColor: 'var(--paper)' }}>
+            <div className="mt-12 sheet rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-100 rounded-full blur-3xl opacity-50 -mr-20 -mt-20"></div>
+              
+              <div className="w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-4 shadow-xl flex-shrink-0 relative z-10" style={{ borderColor: '#fff' }}>
                 <img src="/image/img01.jpeg" alt={tx('작성자 프로필', '作成者プロフィール', lang)} className="w-full h-full object-cover" />
               </div>
-              <div className="flex-1 text-center md:text-left">
+              <div className="flex-1 text-center md:text-left relative z-10">
                 <p className="field-label mb-1">{tx('작성자', '作成者', lang)}</p>
-                <h3 className="font-display-ko text-2xl font-bold mb-3">{tx('정우진', 'チョン・ウジン', lang)}</h3>
-                <div className="text-sm space-y-1" style={{ color: 'var(--ink-soft)' }}>
+                <h3 className="font-display-ko text-3xl font-bold mb-3">{tx('정우진', 'チョン・ウジン', lang)}</h3>
+                <div className="text-sm md:text-base space-y-1.5 font-medium" style={{ color: 'var(--ink-soft)' }}>
                   <p>{tx('전남대학교 · 소프트웨어공학과', '全南大学・ソフトウェア工学科', lang)}</p>
                   <p>{tx('인턴십 기업: 株式会社ALLUXE (도쿄)', 'インターンシップ企業：株式会社ALLUXE（東京）', lang)}</p>
                 </div>
               </div>
-              <div className="stamp w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="font-display-ko text-sm font-black text-center leading-tight">
+              <div className="stamp w-24 h-24 rounded-full flex items-center justify-center flex-shrink-0 relative z-10 bg-white bg-opacity-50 backdrop-blur-sm">
+                <span className="font-display-ko text-base font-black text-center leading-tight">
                   {tx('제출\n완료', '提出\n済み', lang).split('\n').map((line, i) => (
                     <React.Fragment key={i}>{line}<br/></React.Fragment>
                   ))}
@@ -249,7 +288,7 @@ export default function JisaInternshipReport() {
 
           {/* 02. 업무 내용 */}
           <Sheet id="work" num="02" refs={refs} kanji="業務内容" title={tx('인턴십 기업에서의 업무 내용', 'インターンシップ企業での業務内容', lang)}>
-            <p className="text-xs mb-6 px-3 py-2 rounded-md" style={{ background: 'var(--seal-soft)', color: 'var(--seal)' }}>
+            <p className="text-sm mb-6 px-4 py-3 rounded-lg font-medium shadow-sm border border-red-100" style={{ background: 'var(--seal-soft)', color: 'var(--seal)' }}>
               {tx('※ 기업의 기밀 정보나 사진 사용은 사전에 기업 확인이 필요합니다.', '※ 企業の機密情報や写真の使用は事前に企業の確認が必要です。', lang)}
             </p>
             <FieldRow
@@ -263,7 +302,7 @@ export default function JisaInternshipReport() {
             <FieldRow
               label={tx('구체적인 작업 · 개발 내용', '具体的な作業・開発内容', lang)}
               value={
-                <ul className="list-disc pl-5 space-y-1.5">
+                <ul className="list-disc pl-5 space-y-2">
                   <li>{tx('Google Maps API와 Python을 활용한 도쿄 퍼스널짐 매장 정보 대량 수집 및 엑셀 자동화', 'Google Maps APIとPythonを活用した東京のパーソナルジム店舗情報の大量収集およびExcel自動化', lang)}</li>
                   <li>{tx('정보 사이트 sgs109 스냅 뷰어 기획 및 테스트 풀스택(React, MySQL, Docker 등) 개발', '情報サイト「sgs109」のスナップビューアの企画およびテスト用フルスタック（React, MySQL, Docker等）開発', lang)}</li>
                   <li>{tx('Apify와 Make를 활용한 하라주쿠 매장 SNS 자동 수집 시스템 구축 및 이메일/시트 연동', 'ApifyとMakeを活用した原宿店舗SNSの自動収集システムの構築とメール・スプレッドシート連携', lang)}</li>
@@ -278,14 +317,16 @@ export default function JisaInternshipReport() {
             />
             <FieldRow
               label={tx('제작물 소개 (성과물)', '制作物紹介（成果物）', lang)}
-              value={<a href="https://epic-bon.web.app" target="_blank" rel="noreferrer" className="text-blue-600 underline">https://epic-bon.web.app (여행 기록 웹앱)</a>}
+              value={<a href="https://epic-bon.web.app" target="_blank" rel="noreferrer" className="text-indigo-600 hover:text-indigo-800 underline font-medium transition-colors">https://epic-bon.web.app (여행 기록 웹앱)</a>}
               last
             />
-            <div className="mt-6 rounded-xl overflow-hidden border" style={{ borderColor: 'var(--paper-line)' }}>
-              <img src="/image/img03.png" alt={tx('업무 결과물 스크린샷', '業務成果物のスクリーンショット', lang)} className="w-full h-56 object-cover bg-gray-200" />
-              <p className="text-xs px-4 py-2" style={{ color: 'var(--ink-faint)' }}>
-                {tx('업무 결과물 / 시스템 화면 스크린샷', '業務成果物 / システム画面のスクリーンショット', lang)}
-              </p>
+            <div className="mt-6 rounded-2xl overflow-hidden border shadow-inner" style={{ borderColor: 'var(--paper-line)' }}>
+              <img src="/image/img03.png" alt={tx('업무 결과물 스크린샷', '業務成果物のスクリーンショット', lang)} className="w-full h-64 object-cover bg-gray-100 hover:scale-105 transition-transform duration-500" />
+              <div className="bg-white px-4 py-3 border-t" style={{ borderColor: 'var(--paper-line)' }}>
+                <p className="text-xs font-bold" style={{ color: 'var(--ink-faint)' }}>
+                  {tx('업무 결과물 / 시스템 화면 스크린샷', '業務成果物 / システム画面のスクリーンショット', lang)}
+                </p>
+              </div>
             </div>
           </Sheet>
 
@@ -315,11 +356,13 @@ export default function JisaInternshipReport() {
                 lang
               )}
             />
-            <div className="mt-6 rounded-xl overflow-hidden border" style={{ borderColor: 'var(--paper-line)' }}>
-              <img src="/image/img02.jpeg" alt={tx('일본 생활 및 관광 사진', '日本での生活および観光の写真', lang)} className="w-full h-56 object-cover bg-gray-200" />
-              <p className="text-xs px-4 py-2" style={{ color: 'var(--ink-faint)' }}>
-                {tx('주말을 활용한 도쿄 답사 (아메요코초, 신주쿠 교엔 등)', '週末を活用した東京散策（アメ横、新宿御苑など）', lang)}
-              </p>
+            <div className="mt-6 rounded-2xl overflow-hidden border shadow-inner" style={{ borderColor: 'var(--paper-line)' }}>
+              <img src="/image/img02.jpeg" alt={tx('일본 생활 및 관광 사진', '日本での生活および観光の写真', lang)} className="w-full h-64 object-cover bg-gray-100 hover:scale-105 transition-transform duration-500" />
+              <div className="bg-white px-4 py-3 border-t" style={{ borderColor: 'var(--paper-line)' }}>
+                <p className="text-xs font-bold" style={{ color: 'var(--ink-faint)' }}>
+                  {tx('주말을 활용한 도쿄 답사 (아메요코초, 신주쿠 교엔 등)', '週末を活用した東京散策（アメ横、新宿御苑など）', lang)}
+                </p>
+              </div>
             </div>
           </Sheet>
 
@@ -354,7 +397,7 @@ export default function JisaInternshipReport() {
 
           {/* 05. 감사 인사 */}
           <Sheet id="thanks" num="05" refs={refs} kanji="謝辞" title={tx('기업에 대한 감사 인사', '企業に対する謝辞', lang)}>
-            <p className="text-[15px] leading-relaxed" style={{ color: 'var(--ink)' }}>
+            <p className="text-base leading-loose font-medium bg-indigo-50 p-6 rounded-xl border border-indigo-100" style={{ color: 'var(--ink)' }}>
               {tx(
                 '인턴십 기간 동안 부족한 점이 많았음에도 불구하고 세심하게 지도해 주시고 아낌없는 피드백을 주신 주식회사 ALLUXE의 담당자님과 모든 임직원 여러분께 진심으로 깊은 감사의 말씀을 드립니다. 실무 경험뿐만 아니라 따뜻한 배려 덕분에 일본에서의 생활과 업무 모두 성공적으로 마칠 수 있었습니다.',
                 'インターンシップ期間中、至らない点も多々ありましたが、細やかにご指導いただき、惜しみないフィードバックを下さった株式会社ALLUXEの担当者様および社員の皆様に心より深く感謝申し上げます。実務経験のみならず、皆様の温かいご配慮のおかげで、日本での生活と業務のすべてを無事に終えることができました。',
@@ -363,7 +406,7 @@ export default function JisaInternshipReport() {
             </p>
           </Sheet>
 
-          <footer className="mt-16 pt-8 border-t text-xs text-center" style={{ borderColor: 'var(--paper-line)', color: 'var(--ink-faint)' }}>
+          <footer className="mt-20 pt-8 border-t text-sm text-center font-medium" style={{ borderColor: 'var(--paper-line)', color: 'var(--ink-faint)' }}>
             {tx('JISA · Japan Internship Support Association · 일본 인턴십 지원협회', 'JISA・Japan Internship Support Association・日本インターンシップ支援協会', lang)}
           </footer>
         </main>
@@ -391,15 +434,15 @@ function Sheet({
     <section
       id={id}
       ref={(el) => { refs.current[id] = el; }}
-      className="sheet rounded-2xl p-6 md:p-10 mb-8 scroll-mt-8"
+      className="sheet rounded-3xl p-8 md:p-12 mb-10 scroll-mt-12"
     >
-      <div className="flex items-baseline gap-3 mb-6">
-        <span className="font-mono text-xs px-2 py-1 rounded border" style={{ borderColor: 'var(--paper-line)', color: 'var(--seal)' }}>
+      <div className="flex items-center gap-3 mb-8">
+        <span className="font-mono text-sm px-3 py-1 rounded-md font-bold text-white bg-gradient-to-r from-rose-500 to-rose-600 shadow-sm">
           {num}
         </span>
-        <span className="font-mono text-xs" style={{ color: 'var(--ink-faint)' }}>{kanji}</span>
+        <span className="font-mono text-sm tracking-widest font-semibold" style={{ color: 'var(--ink-faint)' }}>{kanji}</span>
       </div>
-      <h2 className="font-display-ko text-2xl md:text-3xl font-bold mb-6" style={{ color: 'var(--ink)' }}>
+      <h2 className="font-display-ko text-3xl md:text-4xl font-bold mb-8 tracking-tight" style={{ color: 'var(--ink)' }}>
         {title}
       </h2>
       <div className="space-y-6">{children}</div>
@@ -417,9 +460,9 @@ function FieldRow({
   last?: boolean;
 }) {
   return (
-    <div className={`grid grid-cols-1 md:grid-cols-[220px_1fr] gap-2 md:gap-6 ${last ? '' : 'pb-6 border-b'}`} style={{ borderColor: 'var(--paper-line)' }}>
-      <p className="field-label pt-1">{label}</p>
-      <div className="text-[15px] leading-relaxed" style={{ color: 'var(--ink)' }}>{value}</div>
+    <div className={`grid grid-cols-1 md:grid-cols-[240px_1fr] gap-3 md:gap-8 ${last ? '' : 'pb-6 border-b'}`} style={{ borderColor: 'var(--paper-line)' }}>
+      <p className="field-label pt-1.5">{label}</p>
+      <div className="text-base leading-relaxed" style={{ color: 'var(--ink)' }}>{value}</div>
     </div>
   );
 }
